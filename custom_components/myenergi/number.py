@@ -204,7 +204,7 @@ class TargetChargePercentSlider(MyenergiEntity, NumberEntity):
     @property
     def native_value(self):
         """Return the current percentage value."""
-        return int(round(self.device.charge_target * 10)) 
+        return int(self.device.charge_target * 10 + 5) 
 
     async def async_set_native_value(self, value: float) -> None:
         """Set the new Charge target percentage."""
