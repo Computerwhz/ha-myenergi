@@ -2,7 +2,10 @@
 
 import operator
 
-from homeassistant.components.binary_sensor import BinarySensorEntity
+from homeassistant.components.binary_sensor import (
+    BinarySensorDeviceClass,
+    BinarySensorEntity,
+)
 from pymyenergi import EDDI
 from pymyenergi import ZAPPI
 
@@ -27,7 +30,8 @@ async def async_setup_entry(hass, entry, async_add_devices):
                     {
                         "name": "Update available",
                         "prop_name": "update_available",
-                        "icon": None,
+                        "device_class": BinarySensorDeviceClass.UPDATE,
+                        "icon": "mdi:download",
                         "attrs": {},
                     },
                 )
@@ -53,6 +57,8 @@ async def async_setup_entry(hass, entry, async_add_devices):
                     {
                         "name": "Locked",
                         "prop_name": "locked",
+                        "device_class": BinarySensorDeviceClass.LOCK,
+                        "invert": True,
                         "icon": None,
                         "attrs": {},
                     },
@@ -82,6 +88,20 @@ async def async_setup_entry(hass, entry, async_add_devices):
                         "icon": None,
                         "attrs": {},
                     },
+                )
+            )
+            sensors.append(
+                MyenergiBinarySensor(
+                    coordinator,
+                    device,
+                    entry,
+                    {
+                        "name": "Being tampered with",
+                        "prop_name": "being_tampered_with",
+                        "device_class": BinarySensorDeviceClass.PROBLEM,
+                        "icon": "mdi:alert",
+                        "attrs": {},
+                    }
                 )
             )
         if device.kind == EDDI:
@@ -133,8 +153,17 @@ class MyenergiBinarySensor(MyenergiEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """Return the state of the sensor."""
-        value = operator.attrgetter(self.meta["prop_name"])(self.device)
+        value = bool(operator.attrgetter(self.meta["prop_name"])(self.device))
+
+        if self.meta.get("invert", False):
+            return not value
+
         return value
+
+    @property
+    def device_class(self):
+        """Return the binary sensor device class."""
+        return self.meta.get("device_class")
 
     @property
     def icon(self):
@@ -160,4 +189,9 @@ class MyenergiBinarySensor(MyenergiEntity, BinarySensorEntity):
     def charge_when_locked(self):
         """Charge when locked enabled"""
         return self._data.get("lck", 0) >> 4 & 1 == 1
+
+    @property
+    def being_tampered_with(self):
+        """Being tampered with status"""
+        return self._data.get("being_tampered_with")
 
