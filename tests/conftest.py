@@ -4,8 +4,8 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from pymyenergi.exceptions import TimeoutException
-from pymyenergi.exceptions import WrongCredentials
+from .pymyenergi.exceptions import TimeoutException
+from .pymyenergi.exceptions import WrongCredentials
 
 from . import load_fixture_json
 

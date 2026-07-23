@@ -75,6 +75,11 @@ async def async_setup_entry(hass, entry, async_add_devices):
                 {},
                 "unlock",
             )
+            platform.async_register_entity_service(
+                "myenergi_cancel_smartregs_charge_delay",
+                {},
+                "cancel_smartregs_charge_delay",
+            )
             devices.append(ZappiChargeModeSelect(coordinator, device, entry))
             devices.append(ZappiPhaseSettingSelect(coordinator, device, entry))
         elif device.kind == "eddi":
@@ -207,3 +212,4 @@ class LibbiOperatingModeSelect(MyenergiEntity, SelectEntity):
     @property
     def options(self):
         return LIBBI_MODES
+

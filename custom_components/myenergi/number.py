@@ -232,3 +232,4 @@ class TargetChargePercentSlider(MyenergiEntity, NumberEntity):
     @property
     def native_step(self):
         return 5
+

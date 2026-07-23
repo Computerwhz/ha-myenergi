@@ -394,6 +394,21 @@ async def async_setup_entry(hass, entry, async_add_devices):
                     ),
                 )
             )
+            sensors.append(
+                MyenergiSensor(
+                    coordinator,
+                    device,
+                    entry,
+                    create_meta(
+                        "Smartregs Charge Delay",
+                        "smartregs_charge_delay",
+                        None,
+                        None,
+                        None,
+                        "mdi:clock-outline"
+                    )
+                )
+            )
 
             if device.ct4.name != "None":
                 sensors.append(
@@ -893,3 +908,4 @@ class MyenergiCTPowerSensor(MyenergiEntity, SensorEntity):
     def state_class(self):
         """Return de device class of the sensor."""
         return self.meta.get("state_class", None)
+

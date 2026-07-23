@@ -160,3 +160,4 @@ class MyenergiBinarySensor(MyenergiEntity, BinarySensorEntity):
     def charge_when_locked(self):
         """Charge when locked enabled"""
         return self._data.get("lck", 0) >> 4 & 1 == 1
+

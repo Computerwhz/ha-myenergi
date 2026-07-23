@@ -79,6 +79,14 @@ myenergi_unlock:
       model: Zappi
     entity:
       domain: select
+myenergi_cancel_smartregs_charge_delay:
+  name: Cancel Smartregs charge delay
+  description: Cancel Smartregs charge delay
+  target:
+    device:
+      model: Zappi
+    entity:
+      domain: select
 myenergi_libbi_charge_target:
   name: Charge target
   description: Set charge target for libbi

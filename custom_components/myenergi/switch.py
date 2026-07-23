@@ -76,3 +76,4 @@ class MyenergiSwitch(MyenergiEntity, SwitchEntity):
         _LOGGER.debug("libbi charging from grid is now OFF")
         await operator.methodcaller(self.meta["update_func"], False)(self.device)
         self.async_schedule_update_ha_state()
+

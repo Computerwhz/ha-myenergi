@@ -127,3 +127,4 @@ class MyenergiHub(CoordinatorEntity):
     @property
     def entity_category(self):
         return self.meta.get("category", None)
+

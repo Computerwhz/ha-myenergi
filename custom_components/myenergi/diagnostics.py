@@ -21,3 +21,4 @@ async def async_get_config_entry_diagnostics(
     for device in all_devices:
         data[device.serial_number] = device.data
     return data
+
