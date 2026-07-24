@@ -98,7 +98,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
                     {
                         "name": "Being tampered with",
                         "prop_name": "being_tampered_with",
-                        "device_class": BinarySensorDeviceClass.PROBLEM,
+                        "device_class": BinarySensorDeviceClass.TAMPER,
                         "icon": "mdi:alert",
                         "attrs": {},
                     }
