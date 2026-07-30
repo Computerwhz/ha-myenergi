@@ -90,6 +90,11 @@ class MyenergiEntity(CoordinatorEntity):
         """Unlock"""
         await self.device.unlock()
 
+    async def cancel_smartregs_charge_delay(self) -> None:
+        """Cancel smart regs charge delay"""
+        _LOGGER.debug("cancel_smartregs_charge_delay called")
+        await self.device.cancel_smartregs_charge_delay()
+
     async def libbi_set_charge_target(self, chargetarget: float) -> None:
         _LOGGER.debug("Setting libbi charge target to %s Wh", chargetarget)
         """Set libbi charge target"""
